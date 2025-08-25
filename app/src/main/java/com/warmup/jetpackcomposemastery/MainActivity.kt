@@ -20,6 +20,9 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.material3.Button
+import androidx.compose.material3.Icon
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -31,6 +34,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
+import com.warmup.jetpackcomposemastery.models.navigationItems
 import com.warmup.jetpackcomposemastery.ui.theme.JetpackComposeMasteryTheme
 
 class MainActivity : ComponentActivity() {
@@ -40,11 +44,29 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             JetpackComposeMasteryTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) {
+                var selectedIndex by rememberSaveable {
+                    mutableIntStateOf(0)
+                }
+                Scaffold(
+                    bottomBar = {
+                        NavigationBar {
+                            navigationItems.forEachIndexed { index, item ->
+                                NavigationBarItem(
+                                    selected = index == selectedIndex,
+                                    label = {Text(item.title)},
+                                    onClick = {
+                                        selectedIndex = index
+                                    },
+                                    icon = {
+                                        Icon(if(index == selectedIndex) item.selectedIcon else item.unselectedIcon, contentDescription = item.title)
+                                    }
+                                )
+                            }
+                        }
+                    },
+                    modifier = Modifier.fillMaxSize()) {
 
-                    Column(modifier = Modifier.fillMaxSize().padding(20.dp), verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
-                       LazyListComposable()
-                    }
+
                 }
             }
         }
@@ -53,13 +75,3 @@ class MainActivity : ComponentActivity() {
 
 
 
-@Composable
-fun LazyListComposable(){
-    LazyColumn {
-        for (i in 1..100){
-            item{
-                Text("Item-$i")
-            }
-        }
-    }
-}

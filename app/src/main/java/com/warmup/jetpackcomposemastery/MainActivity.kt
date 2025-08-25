@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -42,7 +43,7 @@ class MainActivity : ComponentActivity() {
                 Scaffold(modifier = Modifier.fillMaxSize()) {
 
                     Column(modifier = Modifier.fillMaxSize().padding(20.dp), verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
-                       DisplayInternetImage()
+                       LazyListComposable()
                     }
                 }
             }
@@ -51,10 +52,14 @@ class MainActivity : ComponentActivity() {
 }
 
 
+
 @Composable
-fun DisplayInternetImage(){
-    AsyncImage(
-        model = "https://www.raghavendrabhat.com/_next/image?url=%2Fprofile.jpg&w=828&q=75",
-        contentDescription = "Raghavendra Bhat"
-    )
+fun LazyListComposable(){
+    LazyColumn {
+        for (i in 1..100){
+            item{
+                Text("Item-$i")
+            }
+        }
+    }
 }

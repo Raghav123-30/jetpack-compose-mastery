@@ -29,6 +29,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import coil3.compose.AsyncImage
 import com.warmup.jetpackcomposemastery.ui.theme.JetpackComposeMasteryTheme
 
 class MainActivity : ComponentActivity() {
@@ -41,7 +42,7 @@ class MainActivity : ComponentActivity() {
                 Scaffold(modifier = Modifier.fillMaxSize()) {
 
                     Column(modifier = Modifier.fillMaxSize().padding(20.dp), verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
-                       DisplayImage()
+                       DisplayInternetImage()
                     }
                 }
             }
@@ -51,11 +52,9 @@ class MainActivity : ComponentActivity() {
 
 
 @Composable
-fun DisplayImage(){
-    Image(
-        painter = painterResource(R.drawable.waving_person),
-        contentDescription = "Waving Person",
-        modifier = Modifier.fillMaxWidth().padding(16.dp),
-        contentScale = ContentScale.Crop
+fun DisplayInternetImage(){
+    AsyncImage(
+        model = "https://www.raghavendrabhat.com/_next/image?url=%2Fprofile.jpg&w=828&q=75",
+        contentDescription = "Raghavendra Bhat"
     )
 }

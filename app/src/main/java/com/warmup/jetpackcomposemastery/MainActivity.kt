@@ -20,6 +20,8 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.material3.Button
+import androidx.compose.material3.CenterAlignedTopAppBar
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -38,6 +40,7 @@ import com.warmup.jetpackcomposemastery.models.navigationItems
 import com.warmup.jetpackcomposemastery.ui.theme.JetpackComposeMasteryTheme
 
 class MainActivity : ComponentActivity() {
+    @OptIn(ExperimentalMaterial3Api::class)
     @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,6 +51,11 @@ class MainActivity : ComponentActivity() {
                     mutableIntStateOf(0)
                 }
                 Scaffold(
+                    topBar = {
+                        CenterAlignedTopAppBar(title = {
+                            Text("My Cool App")
+                        })
+                    },
                     bottomBar = {
                         NavigationBar {
                             navigationItems.forEachIndexed { index, item ->
